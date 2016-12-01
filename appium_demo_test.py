@@ -1,32 +1,35 @@
 #!/usr/bin/python
 #-*-coding:utf-8-*-
+import unittest
+from selenium import webdriver
 from appium import webdriver
+import time
 
-desired_caps = {}
-desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '6.0.1'
-desired_caps['deviceName'] = 'bc5c8261'
-desired_caps['appPackage'] = 'com.miui.calculator'
-desired_caps['appActivity'] = '.cal.CalculatorActivity'
+class UnitTestLogin(unittest.TestCase):
+    def setUp(self):
+        desired_capabilities = {}
+        desired_capabilities['platformName'] = 'Android'
+        desired_capabilities['platformVersion'] = '4.4.4'
+        desired_capabilities['deviceName'] = 'c23a016'
+        desired_capabilities['appPackage'] = 'com.htmm.owner'
+        desired_capabilities['appActivity'] = '.activity.main.SplashActivity'
+        self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_capabilities)
 
-driver = webdriver.Remote('http://localhost:4725/wd/hub', desired_caps)
+    def tearDown(self):
+        self.driver.close_app()
+        self.driver.quit()
 
-driver.find_element_by_name("1").click()
+    def test_Login(self):
+        time.sleep(2)
+        self.driver.network_connection
+        Account_text=self.driver.find_element_by_id("et_account")
+        print (Account_text)
+        Account_text.send_keys("18318704565")
+        Password_text=driver.find_element_by_id("et_pwd").click()
+        Password_text.send_keys("707017")
+        driver.find_element_by_id("btn_login").click()
 
-driver.find_element_by_name("5").click()
 
-driver.find_element_by_name("9").click()
-
-driver.find_element_by_id("del").click()
-
-driver.find_element_by_name("9").click()
-
-driver.find_element_by_name("5").click()
-
-driver.find_element_by_id("plus").click()
-
-driver.find_element_by_name("6").click()
-
-driver.find_element_by_id("equal").click()
-
-driver.quit()
+if __name__ == '__main__':    
+    suite = unittest.TestLoader().loadTestsFromTestCase(UnitTestLogin)
+    unittest.TextTestRunner(verbosity=2).run(suite)
