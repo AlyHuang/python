@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#-*-coding:utf-8-*-
 import os
 
 L1=[2,3,6,8]

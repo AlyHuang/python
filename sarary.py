@@ -6,22 +6,19 @@ def Get_Sarary():
 
 	while True:
 		try:
-			Sarary=float(input("请输入税前工资："))
+			Sarary=input("请输入税前工资：")
+			Sarary=float(Sarary)
 			if Sarary<=0:
 				print("工资输入错误,请重新输入！")
 				continue
 			while True:
 				a=input("计算方法：\n 1. 标准五险一金和税收 \n 2. 计算五险一金 \n 3. 计算税收\n 4. 自定义\n 请选择：")
-				if not a.isdigit():
-					print("请输入数字！")
+				a=int(a) 
+				if (a<=0)or(a>4):
+					print("类型选择错误,请重新输入！")
 					continue
 				else:
-					a=int(a)
-					if (a<=0)or(a>4):
-						print("请输入1-4的数字！")
-						continue
-					else:
-						return Sarary,a
+					return Sarary,a
 		except Exception:
 			print("输入错误,请重新输入！") 
 			
@@ -56,7 +53,7 @@ def test_mothod(sarary,Endowment,Medical,Job,Fund,flag):
 	else:
 		tax=0
 	fact_sarary=sarary-Lost-fund_h-tax
-	return sarary,ed_in,me_in,job_in,Lost,fund_h,tax,fact_sarary
+	return sarary,ed_in,me_in,job_in,Lost,fund_h,Lost+fund_h,tax,fact_sarary
 	
 def FiveOne(sarary,method):
 	Endowment=0.08
@@ -77,7 +74,7 @@ def FiveOne(sarary,method):
 				Medical=float(input("请输入医疗险%："))
 				Job=float(input("请输入失业险%："))
 				Fund=float(input("请输入公积金%："))
-				return test_mothod(sarary,Endowment*0.01,Medical*0.01,Job*0.01,Fund*0.01)
+				return test_mothod(sarary,Endowment*0.01,Medical*0.01,Job*0.01,Fund*0.01,True)
 			except Exception:
 				print("输入错误,请重新输入！") 
 	else:
@@ -90,7 +87,7 @@ if __name__=="__main__":
 	(x,y)=Get_Sarary()
 	list=FiveOne(x,y)
 	print("================纳税情况=================")
-	show = ["税前工资","养老险","医疗险","失业险","保险缴纳","公积金","纳税","税后工资"]
+	show = ["税前工资","养老险","医疗险","失业险","保险缴纳","公积金","五险一金","纳税","税后工资"]
 	i=0
 	while(i!=len(show)):
 		print(show[i],"%.2f" %list[i])
